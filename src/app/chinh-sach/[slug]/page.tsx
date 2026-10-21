@@ -6,6 +6,7 @@ import { layTruong, theoNgonNgu } from "@/i18n/translate";
 import { markdownSangHtml } from "@/lib/markdown";
 import { TRANG_TINH, layTrangTinh, slugChinhThuc } from "@/lib/trang-tinh-cwwines";
 import { HE_THONG_CUA_HANG } from "@/lib/theme";
+import { layCaiDat } from "@/lib/lay-cai-dat";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -33,6 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * in ra và CSS ẩn bên không dùng — xem components/Song.tsx.
  */
 export default async function Page({ params }: Props) {
+  const caiDat = await layCaiDat();
+  const hotline = (caiDat.hotline ?? "").trim();
   const { slug } = await params;
 
   // SỬA BUG-R03: slug rút gọn từng nằm trong chân trang và trang đăng nhập
@@ -95,10 +98,10 @@ export default async function Page({ params }: Props) {
               <T k="policy.need_help" />
             </h2>
             <a
-              href={`tel:${HE_THONG_CUA_HANG.hotline.replace(/\s/g, "")}`}
+              href={`tel:${hotline.replace(/\s/g, "")}`}
               className="block text-[20px] font-bold text-wine"
             >
-              {HE_THONG_CUA_HANG.hotline}
+              {hotline}
             </a>
             <a
               href={`mailto:${HE_THONG_CUA_HANG.email}`}

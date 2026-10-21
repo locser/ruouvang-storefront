@@ -2,6 +2,7 @@
 
 import NhanSanPham from "./NhanSanPham";
 import { useGioHang } from "@/lib/gio-hang-context";
+import { useCaiDat } from "@/lib/cai-dat-context";
 import { CHINH_SACH } from "@/lib/khuyen-mai";
 import { translate } from "@/i18n/translate";
 import { useT } from "@/i18n/use-t";
@@ -15,7 +16,7 @@ import { theoNgonNgu } from "@/i18n/translate";
 import Anh from "./Anh";
 import AnhChai from "./AnhChai";
 import type { Product } from "@/lib/data";
-import { HE_THONG_CUA_HANG, SO_CUA_HANG } from "@/lib/theme";
+import { SO_CUA_HANG } from "@/lib/theme";
 import { tonKhoThat } from "@/lib/ton-kho";
 import { Tien } from "@/components/T";
 import { tienSong } from "@/lib/tien";
@@ -58,6 +59,8 @@ export default function ChiTietSanPham({
   ghepCung?: Product[];
 }) {
   const t = useT();
+  const caiDat = useCaiDat();
+  const hotline = (caiDat.hotline ?? "").trim();
   const { uuDai, daTaiXong } = useGioHang();
   const anh = product.images?.length ? product.images : [product.thumbnail].filter(Boolean);
   const [iAnh, setIAnh] = useState(0);
@@ -364,7 +367,7 @@ export default function ChiTietSanPham({
 
         {tonKho.conHang && soLuong >= tranSoLuong && (
           <p className="mt-3 text-[12px] leading-relaxed text-ink-muted">
-            <T k="product.that_s_every_bottle_we" v={{ hotline: HE_THONG_CUA_HANG.hotline }} />
+            <T k="product.that_s_every_bottle_we" v={{ hotline }} />
           </p>
         )}
 
@@ -385,10 +388,10 @@ export default function ChiTietSanPham({
             <Bieu d="M3 6.5h11v9H3v-9Zm11 3h4l3 3v3h-7v-6ZM7 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
             <T k="product.collect_at_any_of_our" v={{ SO_CUA_HANG }} />
           </li>
-          {HE_THONG_CUA_HANG.hotline && (
+          {hotline && (
             <li className="flex items-start gap-3.5">
               <Bieu d="M4 5.5h16v10H10l-4.5 3.5v-3.5H4v-10Z" />
-              <T k="product.wine_advice" v={{ hotline: HE_THONG_CUA_HANG.hotline }} />
+              <T k="product.wine_advice" v={{ hotline }} />
             </li>
           )}
           <li className="flex items-start gap-3.5">

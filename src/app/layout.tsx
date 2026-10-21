@@ -111,7 +111,7 @@ export function generateMetadata(): Metadata {
  * cứu. Dữ liệu lấy từ `cwwines-theme.json` và `cwwines-stores.json`, không
  * ghi tay con số nào.
  */
-function duLieuCoCauTruc() {
+function duLieuCoCauTruc(caiDat: { hotline?: string }) {
   const DIA_CHI_SITE = diaChiSite();
   return {
     "@context": "https://schema.org",
@@ -124,7 +124,7 @@ function duLieuCoCauTruc() {
         logo: THUONG_HIEU.logo,
         image: THUONG_HIEU.logo,
         description: THUONG_HIEU.moTa,
-        telephone: HE_THONG_CUA_HANG.hotline,
+        telephone: caiDat.hotline ?? "",
         email: HE_THONG_CUA_HANG.email,
         address: {
           "@type": "PostalAddress",
@@ -189,7 +189,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(duLieuCoCauTruc()),
+            __html: JSON.stringify(duLieuCoCauTruc(caiDat)),
           }}
         />
         <a

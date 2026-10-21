@@ -2,6 +2,7 @@ import Link from "next/link";
 import T, { TL } from "./T";
 import Logo from "./Logo";
 import { FOOTER, HE_THONG_CUA_HANG, SO_CUA_HANG } from "@/lib/theme";
+import { layCaiDat } from "@/lib/lay-cai-dat";
 
 /**
  * Chân trang — nền charcoal, đường kẻ đồng, chữ ngà.
@@ -11,7 +12,10 @@ import { FOOTER, HE_THONG_CUA_HANG, SO_CUA_HANG } from "@/lib/theme";
  * Luật Phòng, chống tác hại của rượu, bia 2019 yêu cầu cảnh báo người dưới 18
  * tuổi. Giữ nguyên văn, chỉ đổi cách trình bày.
  */
-export default function Footer() {
+export default async function Footer() {
+  // Hotline là dữ liệu cửa hàng trong app_settings (Medusa), không hardcode trong JSON tĩnh.
+  const caiDat = await layCaiDat();
+  const hotline = (caiDat.hotline ?? "").trim();
   return (
     <footer className="nen-toi mt-24 bg-ink text-page">
       {/* Đường kẻ đồng mảnh ngăn thân trang với chân trang */}
@@ -28,13 +32,13 @@ export default function Footer() {
             <li>
               <TL obj={HE_THONG_CUA_HANG} field="truSo" />
             </li>
-            {HE_THONG_CUA_HANG.hotline && (
+            {hotline && (
               <li>
                 <a
-                  href={`tel:${HE_THONG_CUA_HANG.hotline.replace(/\s/g, "")}`}
+                  href={`tel:${hotline.replace(/\s/g, "")}`}
                   className="lien-ket text-page transition-colors"
                 >
-                  {HE_THONG_CUA_HANG.hotline}
+                  {hotline}
                 </a>
               </li>
             )}

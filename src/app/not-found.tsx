@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import T, { TL } from "@/components/T";
 import { HE_THONG_CUA_HANG, MENU, duongDanDanhMuc } from "@/lib/theme";
+import { layCaiDat } from "@/lib/lay-cai-dat";
 
 export const metadata: Metadata = {
   title: "Không tìm thấy trang — C.W. Wines",
@@ -25,7 +26,9 @@ export const metadata: Metadata = {
  * Next.js tự dùng tệp này cho cả hai trường hợp: route không khớp và mọi lời gọi
  * `notFound()` trong ứng dụng.
  */
-export default function KhongTimThay() {
+export default async function KhongTimThay() {
+  const caiDat = await layCaiDat();
+  const hotline = (caiDat.hotline ?? "").trim();
   // Lấy vài ngành hàng chính từ mega menu để khách đi tiếp được ngay.
   const goiY = MENU.slice(0, 6);
 
@@ -75,10 +78,10 @@ export default function KhongTimThay() {
         <p className="mt-8 text-[13px] text-ink-muted">
           <T k="not_found.need_help_choosing_call" />{" "}
           <a
-            href={`tel:${HE_THONG_CUA_HANG.hotline.replace(/\s/g, "")}`}
+            href={`tel:${hotline.replace(/\s/g, "")}`}
             className="font-bold text-wine"
           >
-            {HE_THONG_CUA_HANG.hotline}
+            {hotline}
           </a>
         </p>
       </div>

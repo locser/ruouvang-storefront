@@ -2,6 +2,7 @@ import Link from "next/link";
 import T from "@/components/T";
 import FormQuenMatKhau from "./FormQuenMatKhau";
 import { HE_THONG_CUA_HANG } from "@/lib/theme";
+import { layCaiDat } from "@/lib/lay-cai-dat";
 
 export const metadata = {
   title: "Quên mật khẩu — C.W. Wines",
@@ -15,7 +16,9 @@ export const metadata = {
  * Trước đây đường dẫn này trả về HTTP 404 và trang đăng nhập cũng không có link
  * nào dẫn tới, nên khách quên mật khẩu bị kẹt hoàn toàn.
  */
-export default function TrangQuenMatKhau() {
+export default async function TrangQuenMatKhau() {
+  const caiDat = await layCaiDat();
+  const hotline = (caiDat.hotline ?? "").trim();
   return (
     <div className="container-site py-12">
       <div className="mx-auto max-w-md">
@@ -36,10 +39,10 @@ export default function TrangQuenMatKhau() {
         <div className="panel mt-4 p-5 text-center">
           <p className="m-0 text-xs text-ink-muted"><T k="auth.fp_help" /></p>
           <a
-            href={`tel:${HE_THONG_CUA_HANG.hotline.replace(/\s/g, "")}`}
+            href={`tel:${hotline.replace(/\s/g, "")}`}
             className="mt-1 block text-[20px] font-bold text-wine"
           >
-            {HE_THONG_CUA_HANG.hotline}
+            {hotline}
           </a>
           <a
             href={`mailto:${HE_THONG_CUA_HANG.email}`}
