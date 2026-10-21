@@ -18,11 +18,11 @@ song ngữ Việt–Anh, hiển thị giá VND và có cổng xác nhận đủ 
 Chạy crawler trên host:
 
 ```bash
-node scripts/scrapers/crawl-cwwines.js --max-collections=5
-node scripts/scrapers/crawl-cwwines.js
+node tools/scrapers/crawl-cwwines.js --max-collections=5
+node tools/scrapers/crawl-cwwines.js
 ```
 
-Đầu ra nằm ở `scripts/scrapers/data/cwwines-*`; ảnh dự phòng nằm trong
+Đầu ra nằm ở `tools/scrapers/data/cwwines-*`; ảnh dự phòng nằm trong
 `cwwines-images/`. Storefront vẫn dùng URL CDN Shopify gốc.
 
 ## Nạp Medusa

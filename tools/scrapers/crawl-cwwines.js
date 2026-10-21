@@ -3,8 +3,8 @@
  * Cào dữ liệu thật từ cwwines.com (Shopify).
  *
  * Chạy:
- *   node scripts/scrapers/crawl-cwwines.js
- *   node scripts/scrapers/crawl-cwwines.js --max-collections=5
+ *   node tools/scrapers/crawl-cwwines.js
+ *   node tools/scrapers/crawl-cwwines.js --max-collections=5
  *
  * Sản phẩm lấy từ /products.json; quan hệ danh mục bắt buộc được dựng bằng
  * cách quét từng /collections/<handle>/products.json. Crawler còn lấy trang

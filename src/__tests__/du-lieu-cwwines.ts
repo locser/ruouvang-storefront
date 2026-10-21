@@ -19,9 +19,9 @@ export interface DanhMucNguon {
   title: string;
 }
 
-const GOC_REPO = path.resolve(__dirname, "../../../..");
-export const THU_MUC_DATA = path.join(GOC_REPO, "scripts/scrapers/data");
-export const THU_MUC_SRC = path.join(GOC_REPO, "apps/storefront-cwwines/src");
+const GOC_REPO = path.resolve(__dirname, "../..");
+export const THU_MUC_DATA = path.join(GOC_REPO, "tools/scrapers/data");
+export const THU_MUC_SRC = path.join(GOC_REPO, "src");
 
 export function docSanPhamNguon(): SanPhamNguon[] {
   return fs

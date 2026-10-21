@@ -20,7 +20,7 @@
  Danh sách được che lấy TỪ CHÍNH DỮ LIỆU ĐÃ CÀO (tên hãng, tên bộ sưu tập, tên
  sản phẩm) cộng thêm từ điển giống nho và vùng rượu Úc — không ghim cứng.
 
- Chạy:  python3 scripts/scrapers/va-dich-cwwines.py [--thu]
+ Chạy:  python3 tools/scrapers/va-dich-cwwines.py [--thu]
         --thu = chỉ in 10 mẫu trước/sau, KHÔNG ghi đè file
 ═══════════════════════════════════════════════════════════════════════════════
 """
