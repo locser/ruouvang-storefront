@@ -4,9 +4,9 @@
   "private": true,
   "description": "C.W. Wines — storefront rượu vang song ngữ Việt–Anh, giá VND, chặn tuổi 18+",
   "scripts": {
-    "dev": "next dev -p ${PORT:-8900}",
+    "dev": "node --env-file-if-exists=.env.local ./node_modules/next/dist/bin/next dev",
     "build": "next build",
-    "start": "next start -p ${PORT:-8900}",
+    "start": "node --env-file-if-exists=.env.local ./node_modules/next/dist/bin/next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test:unit": "jest --runInBand"
