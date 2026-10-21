@@ -651,7 +651,7 @@ export default function ChuyenKhoan() {
                     >
                       <ChaiVang thuy={MAU_CHAI[i % MAU_CHAI.length]} cao="48px" />
                     </span>
-                    <span className="min-w-0 flex-1 font-display text-[19px] leading-tight">
+                    <span className="min-w-0 flex-1 font-ten text-[19px] leading-tight">
                       <span className="dong-2">{m.title}</span>
                       <small className="mt-0.5 block font-sans text-[12px] leading-snug text-ink-soft">
                         <T k="transfer.qty" v={{ so: m.soLuong }} />

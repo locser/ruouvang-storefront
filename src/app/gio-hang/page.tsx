@@ -124,7 +124,7 @@ export default function CartPage() {
 
                     <div className="min-w-0">
                       <Link href={`/san-pham/${mon.handle}`} className="no-underline">
-                        <h2 className="dong-2 m-0 font-display text-[21px] font-medium leading-[1.25] text-ink transition-colors duration-300 hover:text-wine">
+                        <h2 className="dong-2 m-0 font-ten text-[21px] font-medium leading-[1.25] text-ink transition-colors duration-300 hover:text-wine">
                           {mon.title}
                         </h2>
                       </Link>

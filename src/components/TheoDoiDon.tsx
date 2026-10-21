@@ -727,7 +727,7 @@ function TomTat({ don }: { don: DonTheoDoi }) {
         <ul className="m-0 mt-4 list-none p-0">
           {don.monHang.map((m, i) => (
             <li key={i} className="flex items-start justify-between gap-4 border-t border-line py-3.5">
-              <span className="min-w-0 font-display text-[18px] leading-tight">
+              <span className="min-w-0 font-ten text-[18px] leading-tight">
                 {m.title}
                 <small className="mt-0.5 block font-sans text-[13px] text-ink-soft"><T k="track.qty" v={{ n: m.soLuong }} /></small>
               </span>

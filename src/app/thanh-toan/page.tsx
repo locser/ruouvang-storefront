@@ -553,7 +553,7 @@ export default function CheckoutPage() {
                     {mon.soLuong}
                   </span>
                 </span>
-                <span className="dong-2 min-w-0 flex-1 font-display text-[18px] leading-tight text-ink">
+                <span className="dong-2 min-w-0 flex-1 font-ten text-[18px] leading-tight text-ink">
                   {mon.title}
                 </span>
                 <span className="shrink-0 tabular-nums text-ink">

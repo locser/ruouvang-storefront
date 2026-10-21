@@ -150,7 +150,7 @@ export default function OTimKiem({ tuFocus = false }: { tuFocus?: boolean }) {
                   />
                 </span>
               )}
-              <span className="dong-2 min-w-0 flex-1 font-display text-[16px] leading-tight">
+              <span className="dong-2 min-w-0 flex-1 font-ten text-[16px] leading-tight">
                 {g.title}
               </span>
               <span className="shrink-0 text-[13px] tabular-nums text-ink-muted">

@@ -195,7 +195,7 @@ export default function ChiTietSanPham({
         {product.brand && <p className="nhan-nho">{product.brand}</p>}
         <NhanSanPham nhan={dsNhan} className="mt-3" />
 
-        <h1 className="mt-3 text-[38px] font-normal leading-[1.08] md:text-[52px]">
+        <h1 className="mt-3 font-ten text-[38px] font-normal leading-[1.08] md:text-[52px]">
           {product.title}
         </h1>
 
@@ -456,7 +456,7 @@ export default function ChiTietSanPham({
                         <AnhChai src={p.thumbnail} alt="" fill sizes="160px" className="object-contain p-2 mix-blend-multiply" />
                       )}
                     </span>
-                    <span className="dong-2 font-display text-[16px] leading-tight text-ink">{p.title}</span>
+                    <span className="dong-2 font-ten text-[16px] leading-tight text-ink">{p.title}</span>
                     <span className="mt-auto text-[13px] font-semibold tabular-nums text-ink"><Tien so={p.price} /></span>
                   </Link>
                 </li>

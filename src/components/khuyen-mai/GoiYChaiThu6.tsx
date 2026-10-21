@@ -48,7 +48,7 @@ export default function GoiYChaiThu6({ chai }: { chai: SanPhamTim | null }) {
 
         <div className="min-w-0 flex-1">
           <Link href={`/san-pham/${chai.handle}`} className="no-underline">
-            <p className="dong-2 m-0 font-display text-[17px] leading-tight text-ink">{chai.title}</p>
+            <p className="dong-2 m-0 font-ten text-[17px] leading-tight text-ink">{chai.title}</p>
           </Link>
           <p className="m-0 mt-1 truncate text-[12px] text-ink-muted">
             {huongVi && (
