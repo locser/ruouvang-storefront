@@ -6,15 +6,15 @@ const crypto = require("node:crypto");
 const { createRequire } = require("node:module");
 
 const GOC_REPO = path.resolve(__dirname, "..");
-const THU_MUC_NGUON = path.join(
-  GOC_REPO,
-  "tools/scrapers/data/cwwines-images"
+// Dữ liệu cào đã chuyển sang repo backend (nằm cạnh repo storefront trong workspace).
+const GOC_WORKSPACE = path.resolve(GOC_REPO, "..");
+const THU_MUC_DATA = path.join(
+  GOC_WORKSPACE,
+  "ruouvang-backend/scripts/scrapers/data"
 );
-const TEP_SAN_PHAM = path.join(
-  GOC_REPO,
-  "tools/scrapers/data/cwwines-products.jsonl"
-);
-const TEP_BLOG = path.join(GOC_REPO, "tools/scrapers/data/cwwines-blog.json");
+const THU_MUC_NGUON = path.join(THU_MUC_DATA, "cwwines-images");
+const TEP_SAN_PHAM = path.join(THU_MUC_DATA, "cwwines-products.jsonl");
+const TEP_BLOG = path.join(THU_MUC_DATA, "cwwines-blog.json");
 const TEP_THEME = path.join(
   GOC_REPO,
   "src/lib/cwwines-theme.json"

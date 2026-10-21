@@ -32,8 +32,10 @@ import time
 import urllib.parse
 import urllib.request
 
-GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-THU_MUC = os.path.join(GOC, "scrapers", "data")
+GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../tools
+GOC_REPO = os.path.dirname(os.path.dirname(GOC))                    # .../ruouvang
+# Dữ liệu cào thuộc repo backend (seed Medusa dùng), không còn nằm trong repo storefront.
+THU_MUC = os.path.join(GOC_REPO, "ruouvang-backend", "scripts", "scrapers", "data")
 FILE_SP = os.path.join(THU_MUC, "cwwines-products.jsonl")
 FILE_DM = os.path.join(THU_MUC, "cwwines-categories.json")
 

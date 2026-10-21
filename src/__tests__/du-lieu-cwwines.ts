@@ -20,7 +20,12 @@ export interface DanhMucNguon {
 }
 
 const GOC_REPO = path.resolve(__dirname, "../..");
-export const THU_MUC_DATA = path.join(GOC_REPO, "tools/scrapers/data");
+// Dữ liệu cào đã chuyển sang repo backend (nằm cạnh repo storefront trong workspace).
+const GOC_WORKSPACE = path.resolve(GOC_REPO, "..");
+export const THU_MUC_DATA = path.join(
+  GOC_WORKSPACE,
+  "ruouvang-backend/scripts/scrapers/data"
+);
 export const THU_MUC_SRC = path.join(GOC_REPO, "src");
 
 export function docSanPhamNguon(): SanPhamNguon[] {

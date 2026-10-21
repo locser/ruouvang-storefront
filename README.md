@@ -22,8 +22,9 @@ node tools/scrapers/crawl-cwwines.js --max-collections=5
 node tools/scrapers/crawl-cwwines.js
 ```
 
-Đầu ra nằm ở `tools/scrapers/data/cwwines-*`; ảnh dự phòng nằm trong
-`cwwines-images/`. Storefront vẫn dùng URL CDN Shopify gốc.
+Đầu ra nằm ở repo backend: `ruouvang-backend/scripts/scrapers/data/cwwines-*`
+(crawler tự trỏ sang repo bên cạnh); ảnh dự phòng nằm trong `cwwines-images/`.
+Storefront vẫn dùng URL CDN Shopify gốc.
 
 ## Nạp Medusa
 

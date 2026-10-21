@@ -3,9 +3,10 @@
  *
  * File JSON đó là bản bóc THẬT của cwwines.com (biến CSS `:root`, cây mega
  * menu, ảnh banner, cấu trúc trang chủ), sinh ngày 07/08/2026. Bản gốc nằm ở
- * `tools/scrapers/data/cwwines-theme.json`; bản trong `src/lib` là bản chép
- * để `next build --output standalone` gom được vào ảnh Docker — thư mục
- * `scripts/` KHÔNG nằm trong ứng dụng nên không được gom theo.
+ * `ruouvang-backend/scripts/scrapers/data/cwwines-theme.json` (data cào thuộc repo
+ * backend); bản trong `src/lib` là bản chép để `next build --output standalone`
+ * gom được vào ảnh Docker — thư mục `scripts/` KHÔNG nằm trong ứng dụng nên không
+ * được gom theo.
  *
  * ⚠️ Sửa giao diện thì sửa file JSON, đừng rải hằng số vào từng component.
  */

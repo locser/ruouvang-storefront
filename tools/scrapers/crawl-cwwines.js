@@ -23,7 +23,9 @@ const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
-const THU_MUC_DATA = path.join(__dirname, "data");
+// Dữ liệu cào thuộc repo backend (seed Medusa dùng), không còn nằm trong repo storefront.
+// Crawler vẫn chạy từ đây nhưng ghi thẳng sang repo backend nằm cạnh.
+const THU_MUC_DATA = path.resolve(__dirname, "../../../ruouvang-backend/scripts/scrapers/data");
 const THU_MUC_ANH = path.join(THU_MUC_DATA, "cwwines-images");
 const FILE_SP = path.join(THU_MUC_DATA, "cwwines-products.jsonl");
 const FILE_DM = path.join(THU_MUC_DATA, "cwwines-categories.json");
