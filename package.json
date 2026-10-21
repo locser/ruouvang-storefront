@@ -1,0 +1,42 @@
+{
+  "name": "@dtc/storefront-cwwines",
+  "version": "1.0.0",
+  "private": true,
+  "description": "C.W. Wines — storefront rượu vang song ngữ Việt–Anh, giá VND, chặn tuổi 18+",
+  "scripts": {
+    "dev": "next dev -p ${PORT:-8900}",
+    "build": "next build",
+    "start": "next start -p ${PORT:-8900}",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "jest --runInBand"
+  },
+  "dependencies": {
+    "next": "15.5.18",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@swc/jest": "^0.2.36",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^20.12.11",
+    "@types/react": "19.0.5",
+    "@types/react-dom": "19.0.5",
+    "autoprefixer": "10.4.22",
+    "jest": "^29.7.0",
+    "postcss": "8.5.6",
+    "tailwindcss": "3.4.19",
+    "typescript": "^5.6.2"
+  },
+  "packageManager": "pnpm@10.11.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.5",
+      "@types/react-dom": "19.0.5"
+    }
+  }
+}

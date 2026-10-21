@@ -1,0 +1,38 @@
+{
+  "_ghiChu": [
+    "Cửa hàng tại TP. Hồ Chí Minh. Địa chỉ cụ thể và số điện thoại CHƯA có — cần chủ shop cung cấp rồi điền vào `diaChi`, `diaChiNgan`, `dienThoai`, `lat`, `lng`, `googleMaps`, `embed`.",
+    "Hiện bản đồ chỉ trỏ tới thành phố, không ghim địa điểm cụ thể."
+  ],
+  "capNhat": "2026-10-13",
+  "hotline": "",
+  "email": "",
+  "truSo": "TP. Hồ Chí Minh, Việt Nam",
+  "truSoEn": "Ho Chi Minh City, Vietnam",
+  "giayPhep": [
+    "Cửa hàng Việt Nam cần bổ sung thông tin pháp nhân và giấy phép kinh doanh rượu trước khi mở bán."
+  ],
+  "tinhThanh": [
+    {
+      "ten": "TP. Hồ Chí Minh",
+      "tenEn": "Ho Chi Minh City",
+      "slug": "tp-ho-chi-minh",
+      "banDoTong": "https://www.google.com/maps?q=Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh&output=embed",
+      "cuaHang": [
+        {
+          "ten": "C.W. Wines — TP. Hồ Chí Minh",
+          "tenEn": "C.W. Wines — Ho Chi Minh City",
+          "slug": "tp-ho-chi-minh",
+          "diaChiNgan": "TP. Hồ Chí Minh",
+          "diaChiNganEn": "Ho Chi Minh City",
+          "diaChi": "Địa chỉ cửa hàng đang được cập nhật — TP. Hồ Chí Minh, Việt Nam",
+          "diaChiEn": "Store address coming soon — Ho Chi Minh City, Vietnam",
+          "dienThoai": [],
+          "googleMaps": "https://www.google.com/maps/search/?api=1&query=Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh",
+          "embed": "https://www.google.com/maps?q=Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh&output=embed",
+          "lat": 10.7769,
+          "lng": 106.7009
+        }
+      ]
+    }
+  ]
+}

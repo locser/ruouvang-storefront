@@ -1,0 +1,522 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Hệ thiết kế "Hầm rượu & Đồng" — xem tailwind.config.js để biết bảng màu và
+  các giới hạn độ tương phản (đồng trên giấy chỉ dùng cho đường kẻ/ký hiệu).
+
+  Nguyên tắc: khoảng trắng nhiều, chữ serif cho tiêu đề, sans cho mọi thứ cần
+  đọc nhanh (giá, nút, thông số), đường kẻ mảnh thay cho khung và bóng đổ,
+  chuyển động chậm và ngắn (200–700ms), tắt hẳn khi khách chọn giảm chuyển động.
+*/
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Header dính cao ~88px: không để nó che ô vừa được focus / neo tới. */
+    scroll-padding-top: 120px;
+  }
+
+  /* Khách chọn "giảm chuyển động": mọi cú nhảy neo/cuộn là tức thì, không hoạt ảnh. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-page font-sans text-[15px] leading-[1.7] text-ink antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2 {
+    @apply font-display font-medium text-ink;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  h3,
+  h4 {
+    @apply text-ink;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  ::selection {
+    background: #b08d57;
+    color: #1c1a19;
+  }
+
+  /* Vòng focus phải NHÌN THẤY được khi điều hướng bằng bàn phím. */
+  :focus-visible {
+    outline: 2px solid #80612f;
+    outline-offset: 3px;
+  }
+
+  .nen-toi :focus-visible {
+    outline-color: #d2b988;
+  }
+
+  /* ── ĐA NGÔN NGỮ ────────────────────────────────────────────────────────
+     Xem components/T.tsx: mọi ngôn ngữ đều nằm trong HTML, bọc trong
+     `[data-l="xx"]`. Quy tắc ẨN các ngôn ngữ không được chọn được SINH TỪ
+     `LOCALES` ở layout.tsx (thêm ngôn ngữ không phải sửa CSS). Đổi ngôn ngữ =
+     đổi một thuộc tính `lang` trên <html>.
+
+     `display: contents` (chứ không phải `inline`) để thẻ bọc BIẾN MẤT khỏi
+     cây bố cục: nếu để `inline`, mỗi chuỗi lại thành một hộp con và mọi
+     flex/grid có `gap` sẽ bị chèn thêm khoảng trống thừa. */
+  [data-l] {
+    display: contents;
+  }
+
+  /* Chặn cuộn nền khi hộp xác nhận tuổi / menu đang mở. */
+  /* Ghim body (position: fixed) thay vì chỉ overflow: hidden — iOS Safari bỏ qua
+     overflow trên body. `top` do lib/khoa-cuon.ts đặt để giữ nguyên vị trí cuộn. */
+  body.khoa-cuon {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Carousel ngang vuốt độc lập: không để cú vuốt ngang kích hoạt "quay lại trang". */
+  .cuon-ngang,
+  [aria-roledescription="carousel"] {
+    overscroll-behavior-x: contain;
+  }
+
+  /* ── HERO CAROUSEL (components/HeroCarousel.tsx) ──────────────────────────
+     Chữ của slide hiện dần khi slide trở thành slide đang xem (data-active). Slide
+     đầu hiện sẵn ở lượt render đầu nên không cần JS để thấy nội dung. */
+  .hero-slide .hero-an {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s var(--ease-cellar, cubic-bezier(0.22, 0.61, 0.36, 1));
+    transition-delay: var(--tre, 0ms);
+  }
+  .hero-slide[data-active="true"] .hero-an {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide .hero-an {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Thanh tiến độ của chấm slide. */
+  .hero-tien {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: #d2b988;
+  }
+  .hero-tien[data-fill="full"] {
+    transform: scaleX(1);
+  }
+  .hero-tien[data-fill="run"] {
+    animation: hero-tien linear forwards;
+  }
+  @keyframes hero-tien {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ── DOCK LIÊN HE (components/DockLienHe.tsx) ───────────────────────────── */
+
+  /* Bong bóng gốc của widget.js bị ẩn: nút "Chat với AI" trong dock bấm hộ nó. */
+  #vph-chatbot-launcher {
+    display: none !important;
+  }
+
+  /* Lớp phủ đang mở (menu, bảng lọc, hộp xác nhận tuổi): dock và khung chat mờ đi. */
+  .dock-lien-he,
+  #vph-chatbot-container {
+    transition: opacity 0.2s ease;
+  }
+  body.khoa-cuon .dock-lien-he,
+  body.khoa-cuon #vph-chatbot-container {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Trang có thanh dính đáy (Thêm vào giỏ / Đặt hàng) thì dock lùi lên trên nó. */
+  @media (max-width: 1023px) {
+    body:has([data-thanh-duoi]) .dock-lien-he {
+      bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+    }
+    /* Giỏ hàng/sản phẩm trên điện thoại: tiền và nút nằm sát mép phải nên chỉ giữ MỘT nút (Chat AI)
+       để dock không che con số; Gọi ngay/Zalo vẫn có ở mọi trang khác và trong menu. */
+    body:has([data-thanh-duoi]) .dock-lien-he .dock-phu {
+      display: none;
+    }
+  }
+  .dock-lien-he {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Khung chat mở: gọn dock lại, chỉ còn nút đóng chat dưới khung. */
+  .dock-lien-he[data-chat-mo] .dock-phu {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #vph-chatbot-container {
+    border-radius: 14px !important;
+  }
+  @media (max-width: 639px) {
+    .dock-lien-he[data-chat-mo] {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Trên điện thoại khung chat gần như toàn màn hình, bám đáy. */
+    #vph-chatbot-container {
+      inset: auto 0 0 0 !important;
+      width: 100% !important;
+      height: calc(100dvh - 64px) !important;
+      border-radius: 16px 16px 0 0 !important;
+    }
+  }
+
+  /* Nút "Hỏi trợ lý AI" trong khối mời tư vấn làm nổi nút Chat thật của dock khi rê chuột. */
+  .dock-chat {
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .dock-lien-he[data-nhan-manh] .dock-chat {
+    box-shadow:
+      0 0 0 4px rgba(210, 185, 136, 0.7),
+      0 8px 24px rgba(28, 26, 25, 0.4);
+    transform: scale(1.04);
+  }
+
+  /* Vòng sóng lan quanh nút "Gọi ngay" — phần tử chuyển động liên tục DUY NHẤT. */
+  .dock-song::before,
+  .dock-song::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: #6b1e2e;
+    opacity: 0;
+    animation: dock-song 2.6s ease-out infinite;
+  }
+  .dock-song::after {
+    animation-delay: 1.3s;
+  }
+  @keyframes dock-song {
+    0% {
+      transform: scale(1);
+      opacity: 0.38;
+    }
+    70%,
+    100% {
+      transform: scale(1.2, 1.55);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dock-song::before,
+    .dock-song::after {
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Khung nội dung: rộng rãi, lề tối thiểu 20px ở mọi cỡ màn hình. */
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 md:px-8 lg:px-10;
+  }
+
+  /* Dòng nhãn nhỏ viết hoa phía trên tiêu đề ("eyebrow"). Dùng copper-ink vì
+     chữ nhỏ trên giấy cần ≥ 4,5:1. */
+  .nhan-nho {
+    @apply text-[11px] font-medium uppercase tracking-caps text-copper-ink;
+  }
+
+  .nen-toi .nhan-nho {
+    @apply text-copper-light;
+  }
+
+  /* ── Nút ─────────────────────────────────────────────────────────────────
+     Vuông góc, chữ in hoa giãn chữ, cao tối thiểu 44px (mục tiêu chạm). */
+  .btn-wine {
+    @apply inline-flex min-h-[46px] cursor-pointer items-center justify-center gap-2
+           rounded-none border border-wine bg-wine px-8 py-3 text-[12px] font-medium
+           uppercase tracking-[0.16em] text-page transition-colors duration-300
+           ease-cellar hover:border-wine-dark hover:bg-wine-dark
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-wine-outline {
+    @apply inline-flex min-h-[46px] cursor-pointer items-center justify-center gap-2
+           rounded-none border border-ink/40 bg-transparent px-8 py-3 text-[12px]
+           font-medium uppercase tracking-[0.16em] text-ink transition-colors
+           duration-300 ease-cellar hover:border-wine hover:bg-wine hover:text-page
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Nút trên nền tối (hero, hộp chặn tuổi, chân trang). */
+  .btn-den {
+    @apply inline-flex min-h-[46px] cursor-pointer items-center justify-center gap-2
+           rounded-none border border-page/45 bg-transparent px-8 py-3 text-[12px]
+           font-medium uppercase tracking-[0.16em] text-page transition-colors
+           duration-300 ease-cellar hover:border-page hover:bg-page hover:text-ink;
+  }
+
+  /* Nút đồng — hành động chính trên nền tối. Chữ charcoal đạt 5,61:1. */
+  .btn-dong {
+    @apply inline-flex min-h-[46px] cursor-pointer items-center justify-center gap-2
+           rounded-none border border-copper bg-copper px-8 py-3 text-[12px]
+           font-medium uppercase tracking-[0.16em] text-ink transition-colors
+           duration-300 ease-cellar hover:border-copper-light hover:bg-copper-light;
+  }
+
+  /* Liên kết có gạch chân chạy ra khi rê chuột — thay cho đổi màu đột ngột. */
+  .lien-ket {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .lien-ket:hover,
+  .lien-ket:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* ── Tiêu đề section ──────────────────────────────────────────────────── */
+  .tieu-de-section {
+    @apply font-display text-[34px] font-normal leading-[1.1] text-ink md:text-[48px];
+  }
+
+  /* Đường kẻ đồng mảnh dưới tiêu đề — một chi tiết, không phải khung. */
+  .gach-tieu-de::after {
+    content: "";
+    @apply mx-auto mt-6 block h-px w-14 bg-copper;
+  }
+
+  /* ── Thẻ sản phẩm ───────────────────────────────────────────────────────
+     Không viền, không bóng khi nghỉ: chai rượu đứng trên một tấm nền ấm,
+     chữ nằm trên giấy. ⚠️ KHÔNG đưa `group` vào đây: Tailwind từ chối
+     `@apply group` và làm hỏng cả tệp CSS (mọi trang trả 500). `group` phải
+     đứng trực tiếp trên className của JSX — xem components/TheSanPham.tsx. */
+  .the-sp {
+    @apply relative flex h-full flex-col bg-transparent;
+  }
+
+  /* Nền chai: kem ấm có một vệt sáng phía trên như đèn hầm rượu. */
+  .the-sp__nen {
+    background:
+      radial-gradient(120% 70% at 50% 0%, #fbf8f2 0%, rgba(251, 248, 242, 0) 60%),
+      #efe8db;
+  }
+
+  .gia-ban {
+    @apply font-sans text-[16px] font-medium tabular-nums leading-6 text-ink;
+  }
+
+  .gia-goc {
+    @apply font-sans text-[13px] font-normal tabular-nums text-ink-soft line-through;
+  }
+
+  /* ── Form ─────────────────────────────────────────────────────────────── */
+  /* Viền ô nhập dùng `line-strong` (#8A8178, ≥ 3:1 trên nền giấy) — WCAG 1.4.11. Viền cũ
+     `ink/25` chỉ đạt ~1,6:1 nên người kém thị lực khó thấy ô ở đâu. */
+  .o-nhap {
+    @apply min-h-[48px] w-full rounded-none border border-line-strong bg-cream px-4 py-3
+           text-[15px] text-ink outline-none transition-colors duration-200
+           placeholder:text-ink-soft focus:border-wine;
+  }
+
+  .o-nhap:focus,
+  .o-nhap[aria-invalid="true"] {
+    box-shadow: 0 0 0 1px #6b1e2e;
+  }
+
+  .o-nhap[aria-invalid="true"] {
+    border-color: #6b1e2e;
+  }
+
+  .nhan-form {
+    @apply mb-2 block text-[14px] font-medium text-ink;
+  }
+
+  /* ── Khối dựng chung ─────────────────────────────────────────────────────
+     Các trang giỏ hàng, thanh toán, tài khoản, chính sách dùng bốn lớp dưới
+     đây. Giữ đúng tên lớp cũ để không phải sửa hàng trăm dòng JSX. */
+  .panel {
+    @apply rounded-none border border-line bg-cream;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-none px-2.5 py-1 text-[10px] font-medium
+           uppercase tracking-[0.14em];
+  }
+
+  .section-title {
+    @apply font-display text-[22px] font-medium leading-tight text-ink;
+  }
+
+  .product-card {
+    @apply flex h-full flex-col overflow-hidden rounded-none border border-line
+           bg-cream transition-shadow duration-300 hover:shadow-card-hover;
+  }
+
+  /* Viết đầy đủ chứ không `@apply o-nhap`: `@apply` chỉ nhận utility của
+     Tailwind, không nhận lớp component do chính tệp này khai. */
+  .input-field {
+    @apply min-h-[48px] w-full rounded-none border border-line-strong bg-cream px-4 py-3
+           text-[15px] text-ink outline-none transition-colors duration-200
+           placeholder:text-ink-soft focus:border-wine;
+  }
+
+  .input-field:focus,
+  .input-field[aria-invalid="true"] {
+    box-shadow: 0 0 0 1px #6b1e2e;
+  }
+
+  .input-field[aria-invalid="true"] {
+    border-color: #6b1e2e;
+  }
+}
+
+/* ── Chuyển động ─────────────────────────────────────────────────────────
+   Hai loại duy nhất: (1) hero vào trang, trễ theo từng tầng; (2) khối dưới màn
+   hình hiện dần khi cuộn tới. Cả hai chỉ dùng opacity + translate (chạy trên
+   compositor, không gây reflow) và TẮT HẲN khi khách chọn giảm chuyển động. */
+@keyframes vao-len {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hien-dan {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.vao-len {
+  animation: vao-len 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: var(--tre, 0ms);
+}
+
+.hien-dan {
+  animation: hien-dan 1.2s ease-out both;
+  animation-delay: var(--tre, 0ms);
+}
+
+/* `data-hien` do components/Hien.tsx đặt SAU khi gắn kết, và chỉ với khối còn
+   nằm dưới màn hình — nên không có HTML tĩnh nào bị ẩn, không nháy ở đầu trang,
+   và khách tắt JavaScript vẫn thấy đủ nội dung. */
+[data-hien="cho"] {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+}
+
+[data-hien="xong"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--tre, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vao-len,
+  .hien-dan {
+    animation: none;
+  }
+
+  [data-hien="cho"],
+  [data-hien="xong"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .lien-ket {
+    transition: none;
+  }
+}
+
+@layer utilities {
+  /* Cắt chữ sau N dòng — tên rượu rất dài, luôn phải cắt gọn. */
+  .dong-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .dong-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Thanh cuốn ngang mảnh. */
+  .cuon-ngang {
+    scrollbar-width: thin;
+    scrollbar-color: #b08d57 transparent;
+  }
+
+  .cuon-ngang::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .cuon-ngang::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .cuon-ngang::-webkit-scrollbar-thumb {
+    background: #b08d57;
+  }
+
+  .an-thanh-cuon {
+    scrollbar-width: none;
+  }
+
+  .an-thanh-cuon::-webkit-scrollbar {
+    display: none;
+  }
+}
