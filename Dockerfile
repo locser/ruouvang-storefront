@@ -4,6 +4,6 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
 COPY . .
-ENV PORT=8900
+ENV SERVICE_PORT=8900
 EXPOSE 8900
 CMD ["pnpm", "run", "dev"]

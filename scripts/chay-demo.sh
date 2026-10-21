@@ -7,7 +7,7 @@
 #   PORT=8910 bash scripts/chay-demo.sh  đổi cổng
 #   SKIP_BUILD=1 bash scripts/chay-demo.sh   chạy lại bản đã dựng, bỏ qua bước build
 #
-# Cần Medusa chạy ở MEDUSA_BACKEND_URL trong .env.local và đã nạp sản phẩm — xem README.
+# Cần Medusa chạy ở CONFIG_API_MEDUSA_URL trong .env.local và đã nạp sản phẩm — xem README.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
